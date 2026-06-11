@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Activity, Github, Mail, Globe, AlertTriangle, Play, Pause, Menu, X } from 'lucide-react';
+import { Activity, Github, Mail, Globe, AlertTriangle, Play, Pause, Menu, X, ArrowLeft } from 'lucide-react';
 
 interface HeaderProps {
   isLive: boolean;
@@ -50,16 +50,31 @@ export default function Header({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
           
-          {/* Logo Section */}
-          <div className="flex items-center gap-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-500 via-indigo-600 to-purple-600 shadow-[0_0_20px_rgba(79,70,229,0.3)]">
-              <Activity className="h-5 w-5 text-white" />
-            </div>
-            <div>
-              <span className="text-sm font-semibold tracking-wide text-white uppercase sm:text-base font-sans">
-                NetMonitor
-              </span>
-              <span className="hidden ml-1.5 text-xs text-indigo-400 font-mono sm:inline">v2.4</span>
+          {/* Logo & Back Button Section */}
+          <div className="flex items-center gap-3">
+            <a
+              id="back-to-portfolio-header"
+              href="https://matthews-thekiso-portfolio.vercel.app"
+              className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold font-mono border border-white/10 bg-white/5 text-slate-300 hover:border-indigo-500/30 hover:bg-slate-900 hover:text-indigo-400 transition-all duration-300 shadow-sm"
+              title="Go back to portfolio website"
+            >
+              <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" />
+              <span>PORTFOLIO</span>
+            </a>
+            
+            <div className="hidden sm:block h-6 w-[1px] bg-white/10" />
+
+            {/* Logo Section */}
+            <div className="flex items-center gap-2">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-500 via-indigo-600 to-purple-600 shadow-[0_0_20px_rgba(79,70,229,0.3)]">
+                <Activity className="h-5 w-5 text-white" />
+              </div>
+              <div className="hidden sm:block">
+                <span className="text-sm font-semibold tracking-wide text-white uppercase sm:text-base font-sans font-medium">
+                  NetMonitor
+                </span>
+                <span className="hidden ml-1.5 text-xs text-indigo-400 font-mono sm:inline">v2.4</span>
+              </div>
             </div>
           </div>
 
@@ -155,6 +170,18 @@ export default function Header({
       {isMenuOpen && (
         <div className="md:hidden border-t border-white/5 bg-slate-950/95 py-4 px-4 space-y-4 shadow-xl backdrop-blur-2xl animate-in fade-in slide-in-from-top-4 duration-200">
           <div className="flex flex-col gap-2.5">
+            {/* Primary Mobile Return to Portfolio trigger */}
+            <a
+              id="mobile-back-to-portfolio-banner"
+              href="https://matthews-thekiso-portfolio.vercel.app"
+              className="group flex w-full items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-bold font-mono border border-indigo-500/20 bg-indigo-500/10 text-indigo-300 transition-all duration-200 shadow-[0_0_15px_rgba(99,102,241,0.1)] hover:bg-slate-90 hover:text-indigo-200"
+            >
+              <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+              RETURN TO PORTFOLIO
+            </a>
+            
+            <div className="h-[1px] bg-white/5 my-1" />
+
             <div className="text-[10px] uppercase font-mono tracking-wider text-slate-500 mb-1 px-1">
               Actions and simulation controls
             </div>
