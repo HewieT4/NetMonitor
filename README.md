@@ -29,6 +29,34 @@ A high-performance real-time SRE telemetry gateway and diagnostic command center
 
 ---
 
+## ☁️ Vercel Deployment Guide
+
+Deploying this dashboard on **Vercel** with fully functional Serverless APIs is simple, as the directory structure and file configurations (`vercel.json` and `/api` serverless handlers) have already been fully optimized for you. Follow these step-by-step instructions:
+
+### Step 1: Push Your Code to GitHub (Done)
+Ensure your latest workspace files are committed and pushed to your GitHub repository.
+
+### Step 2: Import into Vercel
+1. Go to the [Vercel Dashboard](https://vercel.com/dashboard) and log in.
+2. Click **Add New** ➔ **Project**.
+3. Select your imported GitHub repository and click **Import**.
+
+### Step 3: Configure Project Settings on Vercel
+Under the **Configure Project** section, use the following specifications (Vercel should automatically detect these from your `vercel.json`):
+- **Framework Preset**: select **Vite** (or Vite/Other).
+- **Build Command**: `npm run build`
+- **Output Directory**: `dist`
+
+### Step 4: Add Environment Variables
+Before clicking Deploy, expand the **Environment Variables** panel and add your credentials:
+1. **Name**: `GEMINI_API_KEY`
+2. **Value**: `[Your actual Google Gemini API Key]` *(Get your key from [Google AI Studio](https://aistudio.google.com/))*
+
+### Step 5: Click Deploy!
+Vercel will build your static frontend assets via Vite and compile the `/api/metrics.ts` and `/api/predict.ts` handlers into lightning-fast, edge-optimized Serverless Functions automatically.
+
+---
+
 ## 🛠️ Developer and Deployment Guidelines
 
 ### ⚡ 1. Initial Local Setup & Dependencies
