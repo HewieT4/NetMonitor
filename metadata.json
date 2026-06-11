@@ -1,0 +1,6 @@
+{
+  "name": "Network Monitor Dashboard",
+  "description": "A sophisticated real-time network monitoring dashboard designed to visualize performance metrics and predict anomalies with Gemini SRE.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
