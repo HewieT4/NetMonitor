@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 import Header from './components/Header';
 import MetricsCard from './components/MetricsCard';
 import MetricCharts from './components/MetricCharts';
@@ -9,6 +7,7 @@ import LiveFeed from './components/LiveFeed';
 import NetworkHealthHeatMap from './components/NetworkHealthHeatMap';
 import type { MetricSummary, CorrelationData, HourlyTrendData, NetworkMetric } from './types';
 import { Activity, Shield, Cpu, RefreshCw, Layers, Download } from 'lucide-react';
+import { generateSREReport } from './utils/pdfGenerator';
 
 export default function App() {
   const [isLive, setIsLive] = useState<boolean>(true);
@@ -76,48 +75,8 @@ export default function App() {
     
     setIsGeneratingPdf(true);
     try {
-      const element = document.getElementById('main-telemetry-dashboard');
-      if (!element) {
-        throw new Error("Dashboard target elements not detected.");
-      }
-
-      // Capture the dashboard content with high rendering precision
-      const canvas = await html2canvas(element, {
-        scale: 2, // High DPI resolution matching printed executive documents
-        backgroundColor: '#0c0d19', // Matches standard app dark background
-        useCORS: true,
-        logging: false,
-        allowTaint: true,
-      });
-
-      const imgData = canvas.toDataURL('image/png');
-      
-      // Standard A4 document dimension in millimeters (width x height)
-      const pdf = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4',
-      });
-
-      const imgWidth = 210; // A4 standard width
-      const pageHeight = 297; // A4 standard height
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      let heightLeft = imgHeight;
-      let position = 0;
-
-      // Render cover and first section
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
-      heightLeft -= pageHeight;
-
-      // Handle multi-page overflow cleanly if height extends beyond margins
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
-        heightLeft -= pageHeight;
-      }
-
-      pdf.save(`netmonitor_metrics_report_${Date.now()}.pdf`);
+      // High-DPI programmatic vector SRE report to avoid iframe canvas sandbox failures
+      generateSREReport(metrics, hourlyTrendData, simulateAnomaly, currentStatusState);
     } catch (err) {
       console.error("PDF engine failure:", err);
     } finally {
